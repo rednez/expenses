@@ -5,7 +5,9 @@ import {
   EntityState,
   PayloadAction,
 } from '@reduxjs/toolkit';
+import { flow, groupBy, map, sortBy } from 'lodash/fp';
 import { Operation } from '../data/operation';
+import { calculateAmounts } from '../utils';
 import { RootState } from './store';
 
 export const FEATURE_KEY = 'operations';
@@ -85,4 +87,9 @@ export const selectHasOperations = createSelector(
 export const selectOperationsEntities = createSelector(
   getOperationsState,
   selectEntities
+);
+
+export const selectCalculatedOperations = createSelector(
+  selectAllOperations,
+  flow(sortBy('date'), groupBy('date'), map(calculateAmounts))
 );

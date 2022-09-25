@@ -46,9 +46,13 @@ export default function Overview() {
     }
   };
 
+  const handleShowCharts = () => {
+    navigate('/charts');
+  };
+
   return hasOperations ? (
     <Stack spacing={2}>
-      <Box>
+      <Stack direction="row" spacing={2}>
         <Button
           variant="contained"
           color="success"
@@ -56,7 +60,11 @@ export default function Overview() {
         >
           Add operation
         </Button>
-      </Box>
+
+        <Button variant="outlined" onClick={handleShowCharts}>
+          Show Charts
+        </Button>
+      </Stack>
       <OperationsTable
         data={operations}
         onDeleteOperation={handleDeleteOperation}
