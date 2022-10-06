@@ -1,11 +1,12 @@
 import { format, isToday, isValid, isYesterday, parseISO } from 'date-fns';
+import { useMemo } from 'react';
 
 export interface DateStringProps {
   date: string;
 }
 
 export function FormattedDate(props: DateStringProps) {
-  const formatDate = (): string => {
+  const formattedDate = useMemo(() => {
     const value = props.date;
 
     if (!isValid(parseISO(value))) {
@@ -19,9 +20,9 @@ export function FormattedDate(props: DateStringProps) {
       : isYesterday(isoValue)
       ? 'Yesterday'
       : format(parseISO(value), 'dd.MM.yyyy');
-  };
+  }, [props.date]);
 
-  return <div>{formatDate()}</div>;
+  return <div>{formattedDate}</div>;
 }
 
 export default FormattedDate;
